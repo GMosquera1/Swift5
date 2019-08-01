@@ -147,3 +147,53 @@ extension String.StringInterpolation {
 }
 print("User details using custom interpolation: \(jiang)")
 print("User details update: \(jiang, dateFormattingStyle: .long)")
+
+
+/*
+ Write a function that takes two sorted arrays and merges them into a single array.
+ 
+ input: [1, 3, 6, 9, 11] and [5, 8, 21, 25]
+ 
+ output: [1, 3, 5, 6, 8, 9, 11, 21, 25]
+ */
+
+
+
+//let array1 = [1, 3, 6, 9, 11]
+//let array2 = [5, 8, 21, 25]
+//let mergedArr = arr1 + arr2
+//print(mergedArr.sorted{$0 < $1})
+
+func mergeArrays (arr1: [Int], arr2: [Int]) -> [Int] {
+    var leftIndex = 0
+    var rightIndex = 0
+    var results = [Int]()
+    
+    while leftIndex < arr1.count && rightIndex < arr2.count {
+    let leftElement = arr1[leftIndex]
+    let rightElement = arr2[rightIndex]
+    if leftElement < rightElement {
+        results.append(leftElement)
+        leftIndex += 1 //add left element to result first
+    } else if leftElement > rightElement { // else add right element first
+        results.append(rightElement)
+        rightIndex += 1
+    } else {
+        results.append(leftElement)
+        leftIndex += 1
+        results.append(rightElement)
+        rightIndex += 1
+        }
+    }
+    if leftIndex < arr1.count {
+        results.append(contentsOf: arr1[leftIndex...])
+    }
+    if rightIndex < arr2.count {
+        results.append(contentsOf: arr2[rightIndex...])
+    }
+return results
+}
+let input1 = [1, 3, 6, 9, 11]
+let input2 = [5, 8, 21, 25]
+let result = mergeArrays(arr1: input1, arr2: input2)
+print(result)
